@@ -23,12 +23,12 @@
   -d 主机组
   -c 要执行的命令
   
-  copy文件
+ 3. copy文件
   ```python
    python main.py -m copy -u user -p passwd -d test_redis_hosts -c "src=./autoacct_new_logger.config dest=~/logstash-2.3.4/config"
   ```
   
-  shell脚本
+ 4. shell脚本
   ```python
    python main.py -m shell -u user -p passwd -d test_redis_hosts -c "src=./change_bashrc_2.sh dest=~/user"
   ```
