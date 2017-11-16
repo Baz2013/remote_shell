@@ -6,6 +6,7 @@ import argparse
 import threading
 import Queue
 import time
+import os
 
 import pexpect
 from pexpect import pxssh
@@ -221,6 +222,20 @@ def _exe_command(r_hosts_lst, r_module, r_user, r_password, r_command):
         #     utils.print_output(queue.get(True))
 
 
+def check_and_create_dir(path):
+    """
+    在当前目录下是否存在path目录，如果不存在则创建
+    :param path:
+    :return: None
+    """
+    log_path = os.path.join(os.getcwd(), path)
+    if not os.path.exists(log_path):
+        os.mkdir(log_path)
+        return
+    else:
+        return
+
+
 def main(r_parser):
     """
     :param r_parser: 传入的参数
@@ -239,7 +254,13 @@ def main(r_parser):
     command = args.command
     config = utils.read_config('./rcm.conf')
     hosts_lst = utils.get_hosts(config, dest)
+    check_and_create_dir('log')
+    logger = utils.get_logger()
+    logger.info("remote_shell start")
+    logger.info("main.py -m {0} -u {1} -p **** -d {2} -c \"{3}\"".format(module, user, dest, command))
     _exe_command(hosts_lst, module, user, password, command)
+    logger.info("host list: %s" % (','.join(hosts_lst)))
+    logger.info("remote_shell end")
 
 
 if __name__ == '__main__':

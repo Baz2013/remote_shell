@@ -7,6 +7,10 @@ utilitis function or method
 import os
 import sys
 import re
+import logging
+import time
+
+G_LOGGER_INS_NAME = 'remote_shell'
 
 
 def read_config(r_config_file):
@@ -116,6 +120,33 @@ def split_copy_command(r_str):
             lst.append(t_str)
 
     return lst
+
+
+def get_logger(console=False):
+    """
+    :return:
+    """
+    logger = logging.getLogger(G_LOGGER_INS_NAME)
+    logger.setLevel(logging.DEBUG)
+    # logger.setLevel(logging.ERROR)
+    date_str = time.strftime("%Y%m%d", time.localtime(time.time()))
+    file_name = '%s_remote_shell.log' % (date_str,)
+    log_file = os.path.expandvars('./log/' + file_name)
+    fh = logging.FileHandler(log_file)
+    fh.setLevel(logging.DEBUG)
+    formatter = logging.Formatter('%(asctime)s--%(name)s--%(levelname)s--%(message)s')
+    fh.setFormatter(formatter)
+    logger.addHandler(fh)
+    if console:
+        ch = logging.StreamHandler()
+        ch.setLevel(logging.DEBUG)
+        ch.setFormatter(formatter)
+        logger.addHandler(ch)
+    else:
+        pass
+        # logger.info('foorbar')
+
+    return logger
 
 
 if __name__ == '__main__':
