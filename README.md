@@ -6,14 +6,14 @@
 
 ## 使用方法
 1. 在当前目录下的rcm.conf配置文件中配置主机组，如：
-  ```commandline
+  ```shell
   [test_redis_hosts]
   10.190.xx.1
   10.190.xx.2
   10.190.xx.3
   ```
 2. 执行命令
-  ```python
+  ```shell
    python main.py -m command -u redis -p redis_passwd -d "test_redis_hosts" -c "ps -ef|grep redis"
   ```
   
@@ -24,18 +24,18 @@
   -c 要执行的命令
   
  3. copy文件
-  ```python
+  ```shell
    python main.py -m copy -u user -p passwd -d test_redis_hosts -c "src=./autoacct_new_logger.config dest=~/logstash-2.3.4/config"
   ```
   
  4. shell脚本
-  ```python
+  ```shell
    python main.py -m shell -u user -p passwd -d test_redis_hosts -c "src=./change_bashrc_2.sh dest=~/user"
   ```
   
 ## 依赖
   该脚本依赖的第三方库有
-  ```python
+  ```shell
    pexpect 3.1
   ```
   
