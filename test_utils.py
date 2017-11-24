@@ -22,10 +22,8 @@ class TestMain(unittest.TestCase):
 
     def test_get_host(self):
         self.assertIn('10.xx.xx.231', utils.get_hosts(
-                {'logger_test': ['10.xx.xx.231', '10.xx.xx.232'], 'logger': ['10.xx.xx.84:8081', '10.xx.xx.85:8081']},
-                'logger_test'))
-
-    def test_get_host(self):
+            {'logger_test': ['10.xx.xx.231', '10.xx.xx.232'], 'logger': ['10.xx.xx.84:8081', '10.xx.xx.85:8081']},
+            'logger_test'))
         self.assertIn('10.xx.xx.231', utils.get_hosts(
                 {'logger_test': ['10.xx.xx.231', '10.xx.xx.232'], 'logger': ['10.xx.xx.84:8081', '10.xx.xx.85:8081']},
                 'logger_test'))
@@ -38,6 +36,18 @@ class TestMain(unittest.TestCase):
         self.assertIn('10.xx.xx.84:8081', utils.get_hosts(
                 {'logger_test': ['10.xx.xx.231', '10.xx.xx.232'], 'logger': ['10.xx.xx.84:8081', '10.xx.xx.85:8081']},
                 'logger'))
+
+    def test_exactly_get_host(self):
+        self.assertIn('10.xx.xx.231', utils.exactly_get_hosts(
+                {'logger_test': ['10.xx.xx.231', '10.xx.xx.232'], 'logger': ['10.xx.xx.84:8081', '10.xx.xx.85:8081']},
+                'logger_test'))
+        self.assertIn('10.xx.xx.232', utils.exactly_get_hosts(
+                {'logger_test': ['10.xx.xx.231', '10.xx.xx.232'], 'logger': ['10.xx.xx.84:8081', '10.xx.xx.85:8081']},
+                'logger_test'))
+        self.assertNotIn('10.xx.xx.84:8081', utils.exactly_get_hosts(
+                {'logger_test': ['10.xx.xx.231', '10.xx.xx.232'], 'logger': ['10.xx.xx.84:8081', '10.xx.xx.85:8081']},
+                'logger_test'))
+
 
 if __name__ == '__main__':
     unittest.main()

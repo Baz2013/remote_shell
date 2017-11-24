@@ -253,7 +253,8 @@ def main(r_parser):
     dest = args.destination
     command = args.command
     config = utils.read_config('./rcm.conf')
-    hosts_lst = utils.get_hosts(config, dest)
+    # hosts_lst = utils.get_hosts(config, dest)  # 模糊匹配
+    hosts_lst = utils.exactly_get_hosts(config, dest)  # 精确匹配
     check_and_create_dir('log')
     logger = utils.get_logger()
     logger.info("remote_shell start")

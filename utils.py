@@ -89,6 +89,30 @@ def get_hosts(r_config, r_dest):
     return rst
 
 
+def exactly_get_hosts(r_config, r_dest):
+    """
+    精确匹配主机组
+    :param r_config: 主机组配置[dir]
+    :param r_dest: 目标主机组 [str]
+    :type r_config: dict
+    :type r_dest: str
+    :return: [list]
+    """
+    matched_str = []
+    rst = []
+
+    for key in r_config.keys():
+        if r_dest.strip() == key:
+            matched_str.append(key)
+            break
+
+    for key in matched_str:
+        rst += r_config.get(key)
+
+    # print rst
+    return rst
+
+
 def red_font(r_str):
     """
     显示红字
