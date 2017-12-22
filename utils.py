@@ -98,18 +98,12 @@ def exactly_get_hosts(r_config, r_dest):
     :type r_dest: str
     :return: [list]
     """
-    matched_str = []
     rst = []
+    dest_lst = r_dest.split("|")
+    for dest in dest_lst:
+        hosts = r_config.get(dest, [])
+        rst += hosts
 
-    for key in r_config.keys():
-        if r_dest.strip() == key:
-            matched_str.append(key)
-            break
-
-    for key in matched_str:
-        rst += r_config.get(key)
-
-    # print rst
     return rst
 
 
